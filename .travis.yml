@@ -1,0 +1,23 @@
+language: python
+sudo: false
+cache:
+  directories:
+  - "~/.platformio"
+python:
+- '2.7'
+install:
+- pip install -U platformio
+- platformio update
+script:
+- platformio test -e native -v
+- platformio remote test --upload-port /dev/ttyUSB0 --test-port /dev/ttyUSB0 -v
+- platformio ci -b nanoatmega328 src -l 'lib/*'
+deploy:
+  provider: script
+  skip_cleanup: true
+  on:
+    branch: master
+  script: pio remote run -t upload --upload-port=/dev/ttyUSB0 -v
+env:
+  global:
+    secure: SsbC0sGCauTEFSN65eempV6Lsy9FZU3BKcEQpr0mQJKwKttGhYB58dO2/WODJ1i9mIW8aZAstiay64EiBR3mE5BDPWjhEoOqsOSByqlyUMEeveW1MH3ItoC5HPJO6YCHMwLiTayqRkburh5K+oz1tA+zBUslk1kmC+4QXkVy2LcFLaXsViqqRSy2mlauWRNfwI7h+7pQzj+AtYhn2JU+cIwGWdKH3uY7byhxzbBpfmlJM7RfCez8kh9yo9XHZZVIiIMRjNqE6fe57JMdk3B62BL+pHAIpYF20Xbk75s/lbTC+FasEWGOsqzsDp4CmevT1ipI/nzdcUum0gAH5B3+9SeWrnAdpmVUPboj298RfkqdGzSrW7GdUxbe1BSXu4UxDRyTGZGtrAzNN0JJfyOqcpk4OWjRxuZ2x+bi+c9mS4bsz7XxgvpIowVsNH0+Fkpmcnr8sdsyXyIAYJo4h9X3XoTtb5IBYDELkN1zv+2M4jnbMZ3ERp2XQ2zt45caMtwXp7y90MEVqpXjnHIxagCbsQeOBaInfanxI3nscWodnV+GTNkoi3nLYgvSAoEcNG78Ll3vBDWLYe8nrogJ73BLTHc6dieubjmY+jB8F6/sKRW87EwVlvIHD0rI+nPSClqxdPZ45C3BkyBS7QHKuPkECRtUACk5gRm9HehJtto84e0=
