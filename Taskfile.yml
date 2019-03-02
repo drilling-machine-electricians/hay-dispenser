@@ -11,6 +11,19 @@ tasks:
     silent: true
     cmds:
       - pio run -t upload
+  test:
+    desc: run all tests after each other
+    cmds:
+      - task: test-native
+      - task: test-embedded
+  test-native:
+    desc: run test locally
+    cmds:
+    - pio test -e native  -v
+  test-embedded:
+    desc: run test on target environment
+    cmds:
+    - pio test -e nanoatmega328  -v
   update-pio:
     desc: update platformio locally
     silent: true
