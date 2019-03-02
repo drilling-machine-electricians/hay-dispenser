@@ -1,0 +1,19 @@
+version: '2'
+
+tasks:
+  clean:
+    desc: cleanup local working directory
+    silent: true
+    cmds:
+      - rm -rf .pioenvs
+  upload:
+    desc: upload to target device locally
+    silent: true
+    cmds:
+      - pio run -t upload
+  update-pio:
+    desc: update platformio locally
+    silent: true
+    cmds:
+      - pio -f upgrade
+      - pio -f update
