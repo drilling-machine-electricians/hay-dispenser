@@ -1,4 +1,7 @@
-#include "Relais.h"
+#ifndef HAY_DISPENSER_RELAISFAKE_H
+#define HAY_DISPENSER_RELAISFAKE_H
+
+#include <Relais.h>
 
 class RelaisFake : public Relais
 {
@@ -21,3 +24,5 @@ public:
   bool turnedOn;
   bool turnedOff;
 };
+
+#endif //HAY_DISPENSER_RELAISFAKE_H
