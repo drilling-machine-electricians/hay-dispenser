@@ -23,11 +23,6 @@ void tearDown(void)
   backward = NULL;
 }
 
-void testCreates(void)
-{
-  TEST_ASSERT_NOT_NULL(motor);
-}
-
 void testInitialState(void)
 {
   TEST_ASSERT_TRUE(motor->isStopped())
@@ -212,7 +207,6 @@ void testChangeDirectionFromForwardToBackward(void)
 void runTests()
 {
   UNITY_BEGIN();
-  RUN_TEST(testCreates);
   RUN_TEST(testInitialState);
   RUN_TEST(testMoveForward);
   RUN_TEST(testMoveBackward);
