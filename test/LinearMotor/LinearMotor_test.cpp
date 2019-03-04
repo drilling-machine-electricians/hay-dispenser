@@ -191,6 +191,24 @@ void testMoveBackwardWhenMovingBackward(void)
   TEST_ASSERT_FALSE(backward->turnedOn);
 }
 
+void testChangeDirectionFromBackwardToForward(void)
+{
+  motor->backward();
+  motor->stop();
+
+  motor->forward();
+  TEST_ASSERT_TRUE(motor->isMovingForward());
+}
+
+void testChangeDirectionFromForwardToBackward(void)
+{
+  motor->forward();
+  motor->stop();
+
+  motor->backward();
+  TEST_ASSERT_TRUE(motor->isMovingBackward());
+}
+
 void runTests()
 {
   UNITY_BEGIN();
@@ -205,6 +223,8 @@ void runTests()
   RUN_TEST(testTryToMoveForwardWhenMovingBackward);
   RUN_TEST(testMoveForwardWhenMovingForward);
   RUN_TEST(testMoveBackwardWhenMovingBackward);
+  RUN_TEST(testChangeDirectionFromBackwardToForward);
+  RUN_TEST(testChangeDirectionFromForwardToBackward);
   UNITY_END();
 }
 
