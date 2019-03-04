@@ -10,7 +10,7 @@ void setUp()
 {
   forward = new RelaisFake();
   backward = new RelaisFake();
-  motor = new LinearMotor();
+  motor = new LinearMotor(forward, backward);
 }
 
 void tearDown(void)
@@ -36,11 +36,22 @@ void testInitialState(void)
   TEST_ASSERT_FALSE(backward->turnedOn);
 }
 
+void testMoveForward(void)
+{
+  motor->forward();
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_TRUE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
 void runTests()
 {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
   RUN_TEST(testInitialState);
+  RUN_TEST(testMoveForward);
   UNITY_END();
 }
 

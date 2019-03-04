@@ -19,7 +19,7 @@ tasks:
   test-native:
     desc: run test locally
     cmds:
-    - pio test -e native  -v
+    - pio test -e native
   test-embedded:
     desc: run test on target environment
     cmds:
