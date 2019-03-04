@@ -113,8 +113,77 @@ void testStopWhenNotMoving(void)
 {
   motor->stop();
 
+  TEST_ASSERT_TRUE(motor->isStopped())
   TEST_ASSERT_FALSE(motor->isMovingForward());
   TEST_ASSERT_FALSE(motor->isMovingBackward());
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
+void testTryToMoveBackwardWhenMovingForward(void)
+{
+  motor->forward();
+  resetFakes();
+
+  motor->backward();
+
+  TEST_ASSERT_FALSE(motor->isStopped())
+  TEST_ASSERT_TRUE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingBackward());
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
+void testTryToMoveForwardWhenMovingBackward(void)
+{
+  motor->backward();
+  resetFakes();
+
+  motor->forward();
+
+  TEST_ASSERT_FALSE(motor->isStopped())
+  TEST_ASSERT_FALSE(motor->isMovingForward());
+  TEST_ASSERT_TRUE(motor->isMovingBackward());
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
+void testMoveForwardWhenMovingForward(void)
+{
+  motor->forward();
+  resetFakes();
+
+  motor->forward();
+
+  TEST_ASSERT_FALSE(motor->isStopped())
+  TEST_ASSERT_TRUE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingBackward());
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
+void testMoveBackwardWhenMovingBackward(void)
+{
+  motor->backward();
+  resetFakes();
+
+  motor->backward();
+
+  TEST_ASSERT_FALSE(motor->isStopped())
+  TEST_ASSERT_FALSE(motor->isMovingForward());
+  TEST_ASSERT_TRUE(motor->isMovingBackward());
 
   TEST_ASSERT_FALSE(forward->turnedOff);
   TEST_ASSERT_FALSE(forward->turnedOn);
@@ -132,6 +201,10 @@ void runTests()
   RUN_TEST(testStopWhenMovingForward);
   RUN_TEST(testStopWhenMovingBackward);
   RUN_TEST(testStopWhenNotMoving);
+  RUN_TEST(testTryToMoveBackwardWhenMovingForward);
+  RUN_TEST(testTryToMoveForwardWhenMovingBackward);
+  RUN_TEST(testMoveForwardWhenMovingForward);
+  RUN_TEST(testMoveBackwardWhenMovingBackward);
   UNITY_END();
 }
 

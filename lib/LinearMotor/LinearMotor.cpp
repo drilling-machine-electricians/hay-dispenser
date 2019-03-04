@@ -11,12 +11,22 @@ LinearMotor::LinearMotor(Relais *forward, Relais *backward)
 
 void LinearMotor::forward()
 {
+  if (!isStopped())
+  {
+    return;
+  }
+
   movingForward = true;
   relaisForward->turnOn();
 }
 
 void LinearMotor::backward()
 {
+  if (!isStopped())
+  {
+    return;
+  }
+
   movingBackward = true;
   relaisBackward->turnOn();
 }
