@@ -1,6 +1,6 @@
 #include "LinearMotor.h"
 
-LinearMotor::LinearMotor(Relais *forward, Relais *backward)
+LinearMotor::LinearMotor(AbstractRelais *forward, AbstractRelais *backward)
 {
   relaisForward = forward;
   relaisBackward = backward;

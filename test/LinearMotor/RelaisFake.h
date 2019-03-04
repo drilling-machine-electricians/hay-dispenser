@@ -1,9 +1,9 @@
 #ifndef HAY_DISPENSER_RELAISFAKE_H
 #define HAY_DISPENSER_RELAISFAKE_H
 
-#include <Relais.h>
+#include <AbstractRelais.h>
 
-class RelaisFake : public Relais
+class RelaisFake : public AbstractRelais
 {
 public:
   RelaisFake()

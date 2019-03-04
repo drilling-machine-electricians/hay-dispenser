@@ -1,12 +1,12 @@
 #ifndef PLATFORM_IO_HANDSON_LINEARMOTOR_H
 #define PLATFORM_IO_HANDSON_LINEARMOTOR_H
 
-#include "Relais.h"
+#include <AbstractRelais.h>
 
 class LinearMotor
 {
 public:
-  LinearMotor(Relais *forward, Relais *backward);
+  LinearMotor(AbstractRelais *forward, AbstractRelais *backward);
 
   void forward();
   void backward();
@@ -17,8 +17,8 @@ public:
   bool isStopped() { return !isMovingForward() && !isMovingBackward(); }
 
 private:
-  Relais *relaisForward;
-  Relais *relaisBackward;
+  AbstractRelais *relaisForward;
+  AbstractRelais *relaisBackward;
 
   bool movingForward;
   bool movingBackward;
