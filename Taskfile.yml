@@ -24,6 +24,15 @@ tasks:
     desc: run test on target environment
     cmds:
     - pio test -e nanoatmega328  -v
+  test-remote:
+    desc: run all tests after each other - embedded tests on remote device
+    cmds:
+      - task: test-native
+      - task: test-remote-embedded
+  test-remote-embedded:
+    desc: run test on target environment
+    cmds:
+    - pio remote test -e nanoatmega328  -v
   update-pio:
     desc: update platformio locally
     silent: true
