@@ -3,13 +3,18 @@
 
 #include "DigitalOutput.h"
 
-class Relais {
+class Relais
+{
 public:
-    Relais(DigitalOutput *output);
-    void turnOn();
-    void turnOff();
+  Relais(DigitalOutput *output);
+  void turnOn();
+  void turnOff();
+
+protected:
+  Relais() {}
+
 private:
-    DigitalOutput *output;
+  DigitalOutput *output;
 };
 
 #endif //PLATFORM_IO_HANDSON_RELAIS_H
