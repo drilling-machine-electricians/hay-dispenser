@@ -30,7 +30,9 @@ void testCreates(void)
 
 void testInitialState(void)
 {
+  TEST_ASSERT_TRUE(motor->isStopped())
   TEST_ASSERT_FALSE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingBackward());
 
   TEST_ASSERT_FALSE(forward->turnedOff);
   TEST_ASSERT_FALSE(forward->turnedOn);
@@ -43,6 +45,8 @@ void testMoveForward(void)
   motor->forward();
 
   TEST_ASSERT_TRUE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingBackward());
+  TEST_ASSERT_FALSE(motor->isStopped())
 
   TEST_ASSERT_FALSE(forward->turnedOff);
   TEST_ASSERT_TRUE(forward->turnedOn);
@@ -54,12 +58,68 @@ void testMoveBackward(void)
 {
   motor->backward();
 
-  // TEST_ASSERT_TRUE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingForward());
+  TEST_ASSERT_TRUE(motor->isMovingBackward());
+  TEST_ASSERT_FALSE(motor->isStopped())
 
   TEST_ASSERT_FALSE(forward->turnedOff);
   TEST_ASSERT_FALSE(forward->turnedOn);
   TEST_ASSERT_FALSE(backward->turnedOff);
   TEST_ASSERT_TRUE(backward->turnedOn);
+}
+
+void resetFakes()
+{
+  forward->turnedOff = false;
+  forward->turnedOn = false;
+  backward->turnedOff = false;
+  backward->turnedOn = false;
+}
+
+void testStopWhenMovingForward(void)
+{
+  motor->forward();
+  resetFakes();
+
+  motor->stop();
+
+  TEST_ASSERT_FALSE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingBackward());
+
+  TEST_ASSERT_TRUE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
+void testStopWhenMovingBackward(void)
+{
+  motor->backward();
+  resetFakes();
+
+  motor->stop();
+
+  TEST_ASSERT_TRUE(motor->isStopped())
+  TEST_ASSERT_FALSE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingBackward());
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_TRUE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
+void testStopWhenNotMoving(void)
+{
+  motor->stop();
+
+  TEST_ASSERT_FALSE(motor->isMovingForward());
+  TEST_ASSERT_FALSE(motor->isMovingBackward());
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_FALSE(backward->turnedOn);
 }
 
 void runTests()
@@ -69,6 +129,9 @@ void runTests()
   RUN_TEST(testInitialState);
   RUN_TEST(testMoveForward);
   RUN_TEST(testMoveBackward);
+  RUN_TEST(testStopWhenMovingForward);
+  RUN_TEST(testStopWhenMovingBackward);
+  RUN_TEST(testStopWhenNotMoving);
   UNITY_END();
 }
 
