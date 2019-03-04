@@ -5,6 +5,9 @@ LinearMotor::LinearMotor(Relais *forward, Relais *backward)
   relaisForward = forward;
   relaisBackward = backward;
 
+  relaisForward->turnOff();
+  relaisBackward->turnOff();
+
   movingForward = false;
   movingBackward = false;
 }

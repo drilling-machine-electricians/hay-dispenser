@@ -6,6 +6,14 @@ LinearMotor *motor = NULL;
 RelaisFake *forward;
 RelaisFake *backward;
 
+void resetFakes()
+{
+  forward->turnedOff = false;
+  forward->turnedOn = false;
+  backward->turnedOff = false;
+  backward->turnedOn = false;
+}
+
 void setUp()
 {
   forward = new RelaisFake();
@@ -29,14 +37,15 @@ void testInitialState(void)
   TEST_ASSERT_FALSE(motor->isMovingForward());
   TEST_ASSERT_FALSE(motor->isMovingBackward());
 
-  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_TRUE(forward->turnedOff);
   TEST_ASSERT_FALSE(forward->turnedOn);
-  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_TRUE(backward->turnedOff);
   TEST_ASSERT_FALSE(backward->turnedOn);
 }
 
 void testMoveForward(void)
 {
+  resetFakes();
   motor->forward();
 
   TEST_ASSERT_TRUE(motor->isMovingForward());
@@ -51,6 +60,8 @@ void testMoveForward(void)
 
 void testMoveBackward(void)
 {
+  resetFakes();
+
   motor->backward();
 
   TEST_ASSERT_FALSE(motor->isMovingForward());
@@ -61,14 +72,6 @@ void testMoveBackward(void)
   TEST_ASSERT_FALSE(forward->turnedOn);
   TEST_ASSERT_FALSE(backward->turnedOff);
   TEST_ASSERT_TRUE(backward->turnedOn);
-}
-
-void resetFakes()
-{
-  forward->turnedOff = false;
-  forward->turnedOn = false;
-  backward->turnedOff = false;
-  backward->turnedOn = false;
 }
 
 void testStopWhenMovingForward(void)
@@ -106,6 +109,8 @@ void testStopWhenMovingBackward(void)
 
 void testStopWhenNotMoving(void)
 {
+  resetFakes();
+
   motor->stop();
 
   TEST_ASSERT_TRUE(motor->isStopped())
