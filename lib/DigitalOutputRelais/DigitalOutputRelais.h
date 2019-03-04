@@ -2,8 +2,9 @@
 #define HAY_DISPENSER_DIGITALOUTPUTRELAY_H
 
 #include "DigitalOutput.h"
+#include <AbstractRelais.h>
 
-class DigitalOutputRelais
+class DigitalOutputRelais : AbstractRelais
 {
 public:
   DigitalOutputRelais(DigitalOutput *output);
