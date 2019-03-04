@@ -30,6 +30,8 @@ void testCreates(void)
 
 void testInitialState(void)
 {
+  TEST_ASSERT_FALSE(motor->isMovingForward());
+
   TEST_ASSERT_FALSE(forward->turnedOff);
   TEST_ASSERT_FALSE(forward->turnedOn);
   TEST_ASSERT_FALSE(backward->turnedOff);
@@ -40,10 +42,24 @@ void testMoveForward(void)
 {
   motor->forward();
 
+  TEST_ASSERT_TRUE(motor->isMovingForward());
+
   TEST_ASSERT_FALSE(forward->turnedOff);
   TEST_ASSERT_TRUE(forward->turnedOn);
   TEST_ASSERT_FALSE(backward->turnedOff);
   TEST_ASSERT_FALSE(backward->turnedOn);
+}
+
+void testMoveBackward(void)
+{
+  motor->backward();
+
+  // TEST_ASSERT_TRUE(motor->isMovingForward());
+
+  TEST_ASSERT_FALSE(forward->turnedOff);
+  TEST_ASSERT_FALSE(forward->turnedOn);
+  TEST_ASSERT_FALSE(backward->turnedOff);
+  TEST_ASSERT_TRUE(backward->turnedOn);
 }
 
 void runTests()
@@ -52,6 +68,7 @@ void runTests()
   RUN_TEST(testCreates);
   RUN_TEST(testInitialState);
   RUN_TEST(testMoveForward);
+  RUN_TEST(testMoveBackward);
   UNITY_END();
 }
 

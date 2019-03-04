@@ -7,8 +7,8 @@ class Relais
 {
 public:
   Relais(DigitalOutput *output);
-  void turnOn();
-  void turnOff();
+  virtual void turnOn();
+  virtual void turnOff();
 
 protected:
   Relais() {}
