@@ -1,12 +1,22 @@
 #include "ProcessImageController.h"
 
+ProcessImageController::ProcessImageController()
+{
+  size = 0;
+}
+
 DigitalInputImage *ProcessImageController::registerInput(AbstractDigitalInput *input)
 {
-  image = new DigitalInputImage(input);
-  return image;
+  image[size] = new DigitalInputImage(input);
+  size++;
+
+  return image[size - 1];
 }
 
 void ProcessImageController::read()
 {
-  image->refresh();
+  for (int i = 0; i < size; i++)
+  {
+    image[i]->refresh();
+  }
 }

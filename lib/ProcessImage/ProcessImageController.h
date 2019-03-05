@@ -4,16 +4,18 @@
 #include <AbstractDigitalInput.h>
 #include "DigitalInputImage.h"
 
-const int MAX_INPUT_SIXE = 10;
+const int MAX_SIZE = 4;
 
 class ProcessImageController
 {
 public:
+  ProcessImageController();
   DigitalInputImage *registerInput(AbstractDigitalInput *input);
   void read();
 
 private:
-  DigitalInputImage *image;
+  DigitalInputImage *image[MAX_SIZE];
+  int size;
 };
 
 #endif
