@@ -7,4 +7,4 @@ public:
   virtual bool isOn() = 0;
 };
 
-#endif // HAY_DISPENSER_ABSTRACTDIGITALINPUT_Hx
+#endif
