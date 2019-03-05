@@ -5,7 +5,7 @@ ProcessImageController::ProcessImageController()
   size = 0;
 }
 
-DigitalInputImage *ProcessImageController::registerInput(AbstractDigitalInput *input)
+AbstractDigitalInput *ProcessImageController::registerInput(AbstractDigitalInput *input)
 {
   image[size] = new DigitalInputImage(input);
   size++;

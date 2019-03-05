@@ -6,10 +6,10 @@
 ProcessImageController *controller = NULL;
 DigitalInputFake *input1 = NULL;
 DigitalInputFake *input2 = NULL;
-DigitalInputImage *image1 = NULL;
-DigitalInputImage *image2 = NULL;
-DigitalInputImage *image3 = NULL;
-DigitalInputImage *image4 = NULL;
+AbstractDigitalInput *image1 = NULL;
+AbstractDigitalInput *image2 = NULL;
+AbstractDigitalInput *image3 = NULL;
+AbstractDigitalInput *image4 = NULL;
 
 void setUp()
 {

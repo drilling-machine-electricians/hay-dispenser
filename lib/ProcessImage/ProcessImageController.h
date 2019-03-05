@@ -10,7 +10,7 @@ class ProcessImageController
 {
 public:
   ProcessImageController();
-  DigitalInputImage *registerInput(AbstractDigitalInput *input);
+  AbstractDigitalInput *registerInput(AbstractDigitalInput *input);
   void read();
 
 private:
