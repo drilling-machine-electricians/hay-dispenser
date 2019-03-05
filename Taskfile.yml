@@ -20,6 +20,14 @@ tasks:
     desc: run test locally
     cmds:
     - pio test -e native
+  test-native-watch:
+    desc: run test locally
+    sources:
+    - ./lib/*/*
+    - ./test/*/*
+    - platformio.ini
+    cmds:
+    - pio test -e native
   test-embedded:
     desc: run test on target environment
     cmds:
