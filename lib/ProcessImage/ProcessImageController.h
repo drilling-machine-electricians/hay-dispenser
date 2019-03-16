@@ -14,6 +14,7 @@ public:
   AbstractDigitalInput *registerInput(AbstractDigitalInput *input);
   AbstractDigitalOutput *registerOutput(AbstractDigitalOutput *output);
   void read();
+  void write() {}
 
 private:
   DigitalInputImage *image[MAX_SIZE];
