@@ -3,7 +3,7 @@
 
 #include <AbstractDigitalOutput.h>
 
-class DigitalOutputImage : AbstractDigitalOutput {
+class DigitalOutputImage : public AbstractDigitalOutput {
 public:
   DigitalOutputImage(AbstractDigitalOutput *output) {
     this->output = output;

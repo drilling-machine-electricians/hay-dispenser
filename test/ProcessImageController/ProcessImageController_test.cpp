@@ -1,18 +1,23 @@
 #include "DigitalInputFake.h"
+#include "DigitalOutputFake.h"
 #include <DigitalInputImage.h>
 #include <ProcessImageController.h>
 #include <unity.h>
 
 ProcessImageController *controller = NULL;
+DigitalOutputFake *output = NULL;
 DigitalInputFake *input = NULL;
 AbstractDigitalInput *image1 = NULL;
 AbstractDigitalInput *image2 = NULL;
 AbstractDigitalInput *image3 = NULL;
 AbstractDigitalInput *image4 = NULL;
 
+AbstractDigitalOutput *outputImage = NULL;
+
 void setUp() {
   controller = new ProcessImageController();
   input = new DigitalInputFake();
+  output = new DigitalOutputFake();
 }
 
 void tearDown(void) {
@@ -33,6 +38,9 @@ void tearDown(void) {
 
   delete image4;
   image4 = NULL;
+
+  delete outputImage;
+  outputImage = NULL;
 }
 
 void testCreates(void) { TEST_ASSERT_NOT_NULL(controller); }
@@ -71,12 +79,21 @@ void testReadMultipleInputs(void) {
   TEST_ASSERT_TRUE(image4->isOn())
 }
 
+void testRegistersOutput(void) {
+  input->status = true;
+
+  outputImage = controller->registerOutput(output);
+
+  TEST_ASSERT_NOT_NULL(outputImage);
+}
+
 void runTests(void) {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
   RUN_TEST(testRegistersInput);
   RUN_TEST(testReadInputs);
   RUN_TEST(testReadMultipleInputs);
+  RUN_TEST(testRegistersOutput);
   UNITY_END();
 }
 
