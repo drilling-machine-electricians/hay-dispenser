@@ -17,6 +17,9 @@ public:
     if (off) {
       output->turnOff();
     }
+
+    on = false;
+    off = false;
   }
   void turnOn() { on = true; }
   void turnOff() { off = true; }
