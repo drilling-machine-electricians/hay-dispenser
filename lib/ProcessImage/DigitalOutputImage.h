@@ -3,9 +3,15 @@
 
 #include <AbstractDigitalOutput.h>
 
-class DigitalOutputImage {
+class DigitalOutputImage : AbstractDigitalOutput {
 public:
-  DigitalOutputImage(AbstractDigitalOutput *output) {}
+  DigitalOutputImage(AbstractDigitalOutput *output) { this->output = output; }
+  void refresh() { output->turnOff(); }
+  void turnOn() {}
+  void turnOff() {}
+
+private:
+  AbstractDigitalOutput *output;
 };
 
 #endif

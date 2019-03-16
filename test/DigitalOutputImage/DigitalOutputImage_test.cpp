@@ -28,10 +28,32 @@ void testDoesNothingOnCreation(void) {
   TEST_ASSERT_FALSE(output->turnedOff);
 }
 
+void testDoesNothingUntilRefreshIsCalled(void) {
+  outputImage->turnOn();
+
+  TEST_ASSERT_FALSE(output->turnedOn);
+  TEST_ASSERT_FALSE(output->turnedOff);
+
+  outputImage->turnOff();
+
+  TEST_ASSERT_FALSE(output->turnedOn);
+  TEST_ASSERT_FALSE(output->turnedOff);
+}
+
+void testTurnsOffOnRefresh(void) {
+  outputImage->turnOff();
+  outputImage->refresh();
+
+  TEST_ASSERT_FALSE(output->turnedOn);
+  TEST_ASSERT_TRUE(output->turnedOff);
+}
+
 void runTests(void) {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
   RUN_TEST(testDoesNothingOnCreation);
+  RUN_TEST(testDoesNothingUntilRefreshIsCalled);
+  RUN_TEST(testTurnsOffOnRefresh);
   UNITY_END();
 }
 
