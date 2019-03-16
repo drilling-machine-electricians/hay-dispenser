@@ -5,9 +5,14 @@
 
 class DigitalOutputFake : public AbstractDigitalOutput {
 public:
-  DigitalOutputFake() {}
+  DigitalOutputFake() {
+    turnedOn = false;
+    turnedOff = false;
+  }
   virtual ~DigitalOutputFake() {}
-  void turnOn() {}
-  void turnOff() {}
+  void turnOn() { turnedOn = true; }
+  void turnOff() { turnedOff = true; }
+  bool turnedOn;
+  bool turnedOff;
 };
 #endif

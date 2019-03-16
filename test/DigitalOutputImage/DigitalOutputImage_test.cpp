@@ -5,12 +5,12 @@
 #include <AbstractDigitalOutput.h>
 #include <DigitalOutputImage.h>
 
-AbstractDigitalOutput *output = NULL;
+DigitalOutputFake *output = NULL;
 DigitalOutputImage *outputImage = NULL;
 
 void setUp() {
   output = new DigitalOutputFake();
-  outputImage = new DigitalOutputImage();
+  outputImage = new DigitalOutputImage(output);
 }
 
 void tearDown(void) {
@@ -23,9 +23,15 @@ void tearDown(void) {
 
 void testCreates(void) { TEST_ASSERT_NOT_NULL(outputImage); }
 
+void testDoesNothingOnCreation(void) {
+  TEST_ASSERT_FALSE(output->turnedOn);
+  TEST_ASSERT_FALSE(output->turnedOff);
+}
+
 void runTests(void) {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
+  RUN_TEST(testDoesNothingOnCreation);
   UNITY_END();
 }
 
