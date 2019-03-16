@@ -75,6 +75,24 @@ void testRefreshResetsState(void) {
   TEST_ASSERT_FALSE(output->turnedOff);
 }
 
+void testConsidersLastRequestWithOn(void) {
+  outputImage->turnOff();
+  outputImage->turnOn();
+  outputImage->refresh();
+
+  TEST_ASSERT_TRUE(output->turnedOn);
+  TEST_ASSERT_FALSE(output->turnedOff);
+}
+
+void testConsidersLastRequestWithOff(void) {
+  outputImage->turnOn();
+  outputImage->turnOff();
+  outputImage->refresh();
+
+  TEST_ASSERT_FALSE(output->turnedOn);
+  TEST_ASSERT_TRUE(output->turnedOff);
+}
+
 void runTests(void) {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
@@ -84,6 +102,8 @@ void runTests(void) {
   RUN_TEST(testTurnsOnOnRefresh);
   RUN_TEST(testChangesNothingOnRefresh);
   RUN_TEST(testRefreshResetsState);
+  RUN_TEST(testConsidersLastRequestWithOn);
+  RUN_TEST(testConsidersLastRequestWithOff);
   UNITY_END();
 }
 

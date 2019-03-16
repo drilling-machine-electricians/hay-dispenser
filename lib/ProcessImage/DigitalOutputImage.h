@@ -7,27 +7,37 @@ class DigitalOutputImage : AbstractDigitalOutput {
 public:
   DigitalOutputImage(AbstractDigitalOutput *output) {
     this->output = output;
-    this->on = false;
-    this->off = false;
+    reset();
   }
+
   void refresh() {
     if (on) {
       output->turnOn();
-    }
-    if (off) {
+    } else if (off) {
       output->turnOff();
     }
 
-    on = false;
-    off = false;
+    reset();
   }
-  void turnOn() { on = true; }
-  void turnOff() { off = true; }
+
+  void turnOn() {
+    reset();
+    on = true;
+  }
+  void turnOff() {
+    reset();
+    off = true;
+  }
 
 private:
   bool on;
   bool off;
   AbstractDigitalOutput *output;
+
+  void reset() {
+    on = false;
+    off = false;
+  }
 };
 
 #endif
