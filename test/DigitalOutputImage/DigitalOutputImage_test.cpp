@@ -56,6 +56,13 @@ void testTurnsOnOnRefresh(void) {
   TEST_ASSERT_FALSE(output->turnedOff);
 }
 
+void testChangesNothingOnRefresh(void) {
+  outputImage->refresh();
+
+  TEST_ASSERT_FALSE(output->turnedOn);
+  TEST_ASSERT_FALSE(output->turnedOff);
+}
+
 void runTests(void) {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
@@ -63,6 +70,7 @@ void runTests(void) {
   RUN_TEST(testDoesNothingUntilRefreshIsCalled);
   RUN_TEST(testTurnsOffOnRefresh);
   RUN_TEST(testTurnsOnOnRefresh);
+  RUN_TEST(testChangesNothingOnRefresh);
   UNITY_END();
 }
 

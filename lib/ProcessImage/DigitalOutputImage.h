@@ -8,19 +8,22 @@ public:
   DigitalOutputImage(AbstractDigitalOutput *output) {
     this->output = output;
     this->on = false;
+    this->off = false;
   }
   void refresh() {
     if (on) {
       output->turnOn();
-    } else {
+    }
+    if (off) {
       output->turnOff();
     }
   }
   void turnOn() { on = true; }
-  void turnOff() {}
+  void turnOff() { off = true; }
 
 private:
-  bool on = false;
+  bool on;
+  bool off;
   AbstractDigitalOutput *output;
 };
 
