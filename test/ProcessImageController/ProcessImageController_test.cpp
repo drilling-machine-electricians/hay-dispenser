@@ -1,33 +1,26 @@
-#include <unity.h>
-#include <ProcessImageController.h>
-#include <DigitalInputImage.h>
 #include "DigitalInputFake.h"
+#include <DigitalInputImage.h>
+#include <ProcessImageController.h>
+#include <unity.h>
 
 ProcessImageController *controller = NULL;
-DigitalInputFake *input1 = NULL;
-DigitalInputFake *input2 = NULL;
+DigitalInputFake *input = NULL;
 AbstractDigitalInput *image1 = NULL;
 AbstractDigitalInput *image2 = NULL;
 AbstractDigitalInput *image3 = NULL;
 AbstractDigitalInput *image4 = NULL;
 
-void setUp()
-{
+void setUp() {
   controller = new ProcessImageController();
-  input1 = new DigitalInputFake();
-  input2 = new DigitalInputFake();
+  input = new DigitalInputFake();
 }
 
-void tearDown(void)
-{
+void tearDown(void) {
   delete controller;
   controller = NULL;
 
-  delete input1;
-  input1 = NULL;
-
-  delete input2;
-  input2 = NULL;
+  delete input;
+  input = NULL;
 
   delete image1;
   image1 = NULL;
@@ -42,39 +35,33 @@ void tearDown(void)
   image4 = NULL;
 }
 
-void testCreates(void)
-{
-  TEST_ASSERT_NOT_NULL(controller);
-}
+void testCreates(void) { TEST_ASSERT_NOT_NULL(controller); }
 
-void testRegistersInput(void)
-{
-  input1->status = true;
+void testRegistersInput(void) {
+  input->status = true;
 
-  image1 = controller->registerInput(input1);
+  image1 = controller->registerInput(input);
 
   TEST_ASSERT_FALSE(image1->isOn())
 }
 
-void testReadInputs(void)
-{
-  input1->status = true;
+void testReadInputs(void) {
+  input->status = true;
 
-  image1 = controller->registerInput(input1);
+  image1 = controller->registerInput(input);
 
   controller->read();
 
   TEST_ASSERT_TRUE(image1->isOn())
 }
 
-void testReadMultipleInputs(void)
-{
-  input1->status = true;
+void testReadMultipleInputs(void) {
+  input->status = true;
 
-  image1 = controller->registerInput(input1);
-  image2 = controller->registerInput(input1);
-  image3 = controller->registerInput(input1);
-  image4 = controller->registerInput(input1);
+  image1 = controller->registerInput(input);
+  image2 = controller->registerInput(input);
+  image3 = controller->registerInput(input);
+  image4 = controller->registerInput(input);
 
   controller->read();
 
@@ -84,8 +71,7 @@ void testReadMultipleInputs(void)
   TEST_ASSERT_TRUE(image4->isOn())
 }
 
-void runTests(void)
-{
+void runTests(void) {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
   RUN_TEST(testRegistersInput);
@@ -94,17 +80,11 @@ void runTests(void)
   UNITY_END();
 }
 
-void setup()
-{
-  runTests();
-}
+void setup() { runTests(); }
 
-void loop()
-{
-}
+void loop() {}
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   runTests();
   return 0;
 }

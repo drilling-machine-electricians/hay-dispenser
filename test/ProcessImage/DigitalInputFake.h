@@ -3,13 +3,10 @@
 
 #include "AbstractDigitalInput.h"
 
-class DigitalInputFake : public AbstractDigitalInput
-{
+class DigitalInputFake : public AbstractDigitalInput {
 public:
-  DigitalInputFake()
-  {
-    status = false;
-  }
+  DigitalInputFake() { status = false; }
+  ~DigitalInputFake() {}
   bool isOn() { return status; }
   bool status;
 };
