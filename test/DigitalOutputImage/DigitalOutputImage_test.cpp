@@ -1,13 +1,25 @@
 #include <DigitalInputImage.h>
 #include <unity.h>
 
-#include "DigitalOutputImage.h"
+#include "DigitalOutputFake.h"
+#include <AbstractDigitalOutput.h>
+#include <DigitalOutputImage.h>
 
+AbstractDigitalOutput *output = NULL;
 DigitalOutputImage *outputImage = NULL;
 
-void setUp() { outputImage = new DigitalOutputImage(); }
+void setUp() {
+  output = new DigitalOutputFake();
+  outputImage = new DigitalOutputImage();
+}
 
-void tearDown(void) {}
+void tearDown(void) {
+  delete outputImage;
+  outputImage = NULL;
+
+  delete output;
+  output = NULL;
+}
 
 void testCreates(void) { TEST_ASSERT_NOT_NULL(outputImage); }
 
