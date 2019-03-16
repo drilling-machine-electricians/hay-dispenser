@@ -5,12 +5,22 @@
 
 class DigitalOutputImage : AbstractDigitalOutput {
 public:
-  DigitalOutputImage(AbstractDigitalOutput *output) { this->output = output; }
-  void refresh() { output->turnOff(); }
-  void turnOn() {}
+  DigitalOutputImage(AbstractDigitalOutput *output) {
+    this->output = output;
+    this->on = false;
+  }
+  void refresh() {
+    if (on) {
+      output->turnOn();
+    } else {
+      output->turnOff();
+    }
+  }
+  void turnOn() { on = true; }
   void turnOff() {}
 
 private:
+  bool on = false;
   AbstractDigitalOutput *output;
 };
 

@@ -48,12 +48,21 @@ void testTurnsOffOnRefresh(void) {
   TEST_ASSERT_TRUE(output->turnedOff);
 }
 
+void testTurnsOnOnRefresh(void) {
+  outputImage->turnOn();
+  outputImage->refresh();
+
+  TEST_ASSERT_TRUE(output->turnedOn);
+  TEST_ASSERT_FALSE(output->turnedOff);
+}
+
 void runTests(void) {
   UNITY_BEGIN();
   RUN_TEST(testCreates);
   RUN_TEST(testDoesNothingOnCreation);
   RUN_TEST(testDoesNothingUntilRefreshIsCalled);
   RUN_TEST(testTurnsOffOnRefresh);
+  RUN_TEST(testTurnsOnOnRefresh);
   UNITY_END();
 }
 
